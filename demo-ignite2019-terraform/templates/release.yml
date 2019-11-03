@@ -1,0 +1,52 @@
+parameters:
+  azureSubscription:
+  environment:
+  terraformStorageAccountName:
+
+jobs:
+- job: Deploy
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+    # Load artifacts
+    - download: current
+      artifact: app
+
+    # Apply terraform
+    - task: terraform@0
+      inputs:
+        command: cli
+        targetAzureSubscription: ${{ parameters.azureSubscription }}
+        targetStorageAccountName: '${{ parameters.terraformStorageAccountName }}'
+        backendStateFileKey: '${{ parameters.environment }}.terraform.tfstate'
+        workingDirectory: $(System.DefaultWorkingDirectory)/terraform/
+        script: |
+          # Fail on errors, output every command and result to the log
+          set -e -x
+
+          # Generate a Terraform plan
+          terraform plan \
+            -var environment="${{ parameters.environment }}" \
+            -out=${{ parameters.environment }}.tfplan \
+            -input=false 
+
+          # Apply Terraform Template
+          terraform apply ${{ parameters.environment }}.tfplan
+
+          # Get output
+          APP_NAME=`terraform output app_name`
+
+          # Set storageAccountName variable from terraform output
+          echo "##vso[task.setvariable variable=appName]$APP_NAME"
+    
+    # Release the app
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: ${{ parameters.azureSubscription }}
+        appType: 'webAppLinux'
+        WebAppName: $(appName)
+        packageForLinux: '$(System.DefaultWorkingDirectory)/*'
+        RuntimeStack: 'DOTNETCORE|2.2'
+        StartupCommand: 'dotnet run demo-app.dll'

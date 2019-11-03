@@ -1,0 +1,74 @@
+trigger:
+  batch: true
+  branches:
+    include: 
+    - master
+  paths:
+    include:
+    - demo-ignite2019-terraform/azure-pipelines-app.yml
+
+stages:
+
+# Build Stage
+- stage: BuildAndTest
+  jobs:
+  - job: BuildAndTest
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    steps:
+    # Build and publish the application library
+    - script: |
+        cd demo-app
+        dotnet publish -c release -o $(build.StagingDirectory)
+      displayName: Publish application
+
+    # Publish the app as an artifact
+    - publish: $(Build.ArtifactStagingDirectory)/out
+      artifact: blog
+        
+      
+# Staging release
+- stage: Staging
+  jobs:
+  - job: Release
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    steps:
+
+    # Download the published application artifact
+    - download: current
+      artifact: app
+
+    # Release the app
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: $(stagingAzureSubscription)
+        appType: 'webAppLinux'
+        WebAppName: $(stagingAppName)
+        packageForLinux: '$(System.DefaultWorkingDirectory)/*'
+        RuntimeStack: 'DOTNETCORE|2.2'
+        StartupCommand: 'dotnet run demo-app.dll'
+
+# Production release  
+- stage: Production
+  jobs:
+  - job: Release
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    steps:
+
+    # Download the published application artifact
+    - download: current
+      artifact: app
+    
+    # Release the app
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: $(productionAzureSubscription)
+        appType: 'webAppLinux'
+        WebAppName: ''
+        packageForLinux: '$(System.DefaultWorkingDirectory)/*'
+        RuntimeStack: 'DOTNETCORE|2.2'
+        StartupCommand: 'dotnet run demo-app.dll'

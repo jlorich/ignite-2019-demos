@@ -1,0 +1,15 @@
+jobs:
+- job: Deploy
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+    # Build and publish the application library
+    - script: |
+        cd demo-app
+        dotnet publish -c release -o $(build.StagingDirectory)
+      displayName: Publish application
+
+    # Publish the app as an artifact
+    - publish: $(Build.StagingDirectory)/out
+      artifact: blog

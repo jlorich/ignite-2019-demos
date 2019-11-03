@@ -1,0 +1,30 @@
+trigger:
+  batch: true
+  branches:
+    include: 
+    - master
+  paths:
+    include:
+    - demo-ignite2019-terraform/azure-pipelines-final.yml
+    - demo-ignite2019-terraform/templates/*
+        
+stages:
+- stage: Build
+  jobs:
+  - template: templates/build.yml
+
+- stage: Staging
+  jobs:
+  - template: templates/release.yml
+    parameters:
+      environment: staging
+      azureSubscription: $(stagingAzureSubscription)
+      terraformStorageAccountName: jlorichtfstate
+
+- stage: Production
+  jobs:
+  - template: templates/release.yml
+    parameters:
+      environment: production
+      azureSubscription: $(productionAzureSubscription)
+      terraformStorageAccountName: jlorichtfstate
