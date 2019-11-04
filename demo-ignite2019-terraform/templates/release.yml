@@ -11,7 +11,7 @@ jobs:
   steps:
     - task: terraformInstaller@0
       inputs:
-        terraformVersion: '0.12.3'
+        terraformVersion: '0.12.13'
         
     # Apply terraform
     - task: terraform@0
