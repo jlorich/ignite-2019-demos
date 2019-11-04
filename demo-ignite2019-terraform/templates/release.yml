@@ -16,10 +16,10 @@ jobs:
     # Apply terraform
     - task: terraform@0
       inputs:
-        command: cli
+        command: CLI
         targetAzureSubscription: ${{ parameters.azureSubscription }}
         targetStorageAccountName: '${{ parameters.terraformStorageAccountName }}'
-        backendStateFileKey: '${{ parameters.environment }}.terraform.tfstate'
+        backendStateFileKey: 'ignitedemo${{ parameters.environment }}.tfstate'
         workingDirectory: $(System.DefaultWorkingDirectory)/terraform/
         script: |
           # Fail on errors, output every command and result to the log
