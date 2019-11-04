@@ -49,7 +49,7 @@ stages:
         appType: 'webAppLinux'
         WebAppName:  jl-ignite2019-terraform-demo-staging-app
         packageForLinux: '$(Pipeline.Workspace)/app'
-        RuntimeStack: 'DOTNETCORE|2.2'
+        RuntimeStack: 'DOTNETCORE|3.0'
         StartupCommand: 'dotnet demo-app.dll  --urls http://0.0.0.0:8080'
 
 # Production release  
@@ -75,5 +75,5 @@ stages:
         appType: 'webAppLinux'
         WebAppName:  jl-ignite2019-terraform-demo-staging-app
         packageForLinux: '$(Pipeline.Workspace)/app'
-        RuntimeStack: 'DOTNETCORE|2.2'
+        RuntimeStack: 'DOTNETCORE|3.0'
         StartupCommand: 'dotnet demo-app.dll --urls http://0.0.0.0:8080'
