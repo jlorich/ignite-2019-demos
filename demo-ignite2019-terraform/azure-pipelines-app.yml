@@ -48,7 +48,7 @@ stages:
         azureSubscription: 'MTC Denver Sandbox'
         appType: 'webAppLinux'
         WebAppName:  jl-ignite2019-terraform-demo-staging-app
-        packageForLinux: '$(Pipeline.Workspace)/app/*'
+        packageForLinux: '$(Pipeline.Workspace)/app'
         RuntimeStack: 'DOTNETCORE|2.2'
         StartupCommand: 'dotnet run demo-app.dll'
 
@@ -74,6 +74,6 @@ stages:
         azureSubscription: 'MTC Denver Sandbox'
         appType: 'webAppLinux'
         WebAppName:  jl-ignite2019-terraform-demo-staging-app
-        packageForLinux: '$(Pipeline.Workspace)/app/*'
+        packageForLinux: '$(Pipeline.Workspace)/app'
         RuntimeStack: 'DOTNETCORE|2.2'
         StartupCommand: 'dotnet run demo-app.dll'
