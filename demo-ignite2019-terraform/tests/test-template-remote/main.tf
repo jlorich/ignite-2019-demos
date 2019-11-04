@@ -1,6 +1,12 @@
-  
 terraform {
-  backend "azurerm" {}
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "msus"
+
+    workspaces {
+      name = "tfcloud-test"
+    }
+  }
 }
 
 provider "azurerm" {
