@@ -40,7 +40,7 @@ stages:
         ARM_TENANT_ID: $(tenantId)
         ARM_CLIENT_ID: $(servicePrincipalId)
         ARM_CLIENT_SECRET : $(servicePrincipalSecret)
-      workingDir: ./demo-ignite2019-terraform
+      workingDirectory: ./demo-ignite2019-terraform
 
       # Production release
 - stage: Production
@@ -74,4 +74,4 @@ stages:
         ARM_TENANT_ID: $(tenantId)
         ARM_CLIENT_ID: $(servicePrincipalId)
         ARM_CLIENT_SECRET : $(servicePrincipalSecret)
-      workingDir: ./demo-ignite2019-terraform
+      workingDirectory: ./demo-ignite2019-terraform
