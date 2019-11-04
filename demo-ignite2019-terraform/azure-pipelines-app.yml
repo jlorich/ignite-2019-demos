@@ -73,7 +73,7 @@ stages:
         ConnectionType: 'AzureRM'
         azureSubscription: 'MTC Denver Sandbox'
         appType: 'webAppLinux'
-        WebAppName:  jl-ignite2019-terraform-demo-staging-app
+        WebAppName:  jl-ignite2019-terraform-demo-production-app
         packageForLinux: '$(Pipeline.Workspace)/app'
         RuntimeStack: 'DOTNETCORE|3.0'
         StartupCommand: 'dotnet demo-app.dll --urls http://0.0.0.0:8080'
