@@ -17,7 +17,7 @@ jobs:
       providerAzureConnectedServiceName: 'MTC Denver Sandbox'
       backendAzureProviderStorageAccountName: 'mtcdenterraformsandbox'
       backendAzureStateFileKey: 'tfclitest.tfstate'
-      cwd: terraform
+      cwd: $(System.DefaultWorkingDirectory)/demo-ignite2019-terraform/oldtf
       script: |
         # Validate
         terraform validate
