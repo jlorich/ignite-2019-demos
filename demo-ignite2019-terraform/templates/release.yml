@@ -11,7 +11,14 @@ jobs:
   steps:
     - task: terraformInstaller@0
       inputs:
-        terraformVersion: '0.12.3'
+        terraformVersion: '0.12.13'
+    
+    - script: |
+        set -e -x
+        
+        echo `which terraform`
+
+        echo `terraform -v`
      
     # Apply terraform
     - task: terraform@0
