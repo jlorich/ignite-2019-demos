@@ -1,11 +1,9 @@
-provider "azurerm" {
-  version = "=1.35.0"
+terraform {
+  backend "azurerm" {}
 }
 
-terraform {
-  backend "azurerm" {
-
-  }
+provider "azurerm" {
+  version = "=1.36.0"
 }
 
 resource "azurerm_resource_group" "default" {
