@@ -6,9 +6,13 @@ parameters:
 jobs:
 - job: Deploy
   pool:
-    vmImage: 'Ubuntu-18.04'
+    vmImage: 'Ubuntu-16.04'
 
   steps:
+    - task: terraformInstaller@0
+      inputs:
+        terraformVersion: '0.12.3'
+     
     # Apply terraform
     - task: terraform@0
       inputs:      
