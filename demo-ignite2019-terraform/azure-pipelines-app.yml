@@ -19,7 +19,6 @@ stages:
     # Build and publish the application library
     - script: |
         set -e -x
-        cd demo-app
         dotnet publish ./demo-ignite2019-terraform/src/demo-app.csproj -c release -o $(Build.StagingDirectory)
       displayName: Publish application
 
