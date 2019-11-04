@@ -11,11 +11,11 @@ trigger:
 stages:
 - stage: Build
   jobs:
-  - template: templates/build.yml
+  - template: demo-ignite2019-terraform/templates//build.yml
 
 - stage: Staging
   jobs:
-  - template: templates/release.yml
+  - template: demo-ignite2019-terraform/templates//release.yml
     parameters:
       environment: staging
       azureSubscription: $(stagingAzureSubscription)
@@ -23,7 +23,7 @@ stages:
 
 - stage: Production
   jobs:
-  - template: templates/release.yml
+  - template: demo-ignite2019-terraform/templates/release.yml
     parameters:
       environment: production
       azureSubscription: $(productionAzureSubscription)
