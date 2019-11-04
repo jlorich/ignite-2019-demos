@@ -48,5 +48,5 @@ jobs:
         appType: 'webAppLinux'
         WebAppName: $(appName)
         packageForLinux: '$(System.DefaultWorkingDirectory)/*'
-        RuntimeStack: 'DOTNETCORE|2.2'
-        StartupCommand: 'dotnet run demo-app.dll'
+        RuntimeStack: 'DOTNETCORE|3.0'
+        StartupCommand: 'dotnet demo-app.dll --urls http://0.0.0.0:8080'

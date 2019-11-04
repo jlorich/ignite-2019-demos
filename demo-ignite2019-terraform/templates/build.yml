@@ -6,10 +6,10 @@ jobs:
   steps:
     # Build and publish the application library
     - script: |
-        cd demo-app
-        dotnet publish -c release -o $(build.StagingDirectory)
+        set -e -x
+        dotnet publish ./demo-ignite2019-terraform/src/demo-app.csproj -c release -o $(Build.StagingDirectory)
       displayName: Publish application
 
     # Publish the app as an artifact
-    - publish: $(Build.StagingDirectory)/out
-      artifact: blog
+    - publish: $(Build.StagingDirectory)
+      artifact: app
