@@ -30,12 +30,12 @@ stages:
 
         # Generate a Terraform plan
         terraform plan \
-          -var environment="${{ parameters.environment }}" \
-          -out=${{ parameters.environment }}.tfplan \
+          -var environment=staging \
+          -out=staging.tfplan \
           -input=false 
 
         # Apply Terraform Template
-        terraform apply ${{ parameters.environment }}.tfplan
+        terraform apply staging.tfplan
       env:
         ARM_TENANT_ID: $(tenantId)
         ARM_CLIENT_ID: $(servicePrincipalId)
@@ -64,12 +64,12 @@ stages:
 
         # Generate a Terraform plan
         terraform plan \
-          -var environment="${{ parameters.environment }}" \
-          -out=${{ parameters.environment }}.tfplan \
+          -var environment=production \
+          -out=production.tfplan \
           -input=false 
 
         # Apply Terraform Template
-        terraform apply ${{ parameters.environment }}.tfplan
+        terraform apply production.tfplan
       env:
         ARM_TENANT_ID: $(tenantId)
         ARM_CLIENT_ID: $(servicePrincipalId)
