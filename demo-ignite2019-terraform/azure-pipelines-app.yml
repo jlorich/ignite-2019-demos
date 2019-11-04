@@ -34,6 +34,8 @@ stages:
     pool:
       vmImage: 'Ubuntu-16.04'
     steps:
+    # Don't clone the repo
+    - checkout: none
 
     # Download the published application artifact
     - download: current
@@ -46,7 +48,7 @@ stages:
         azureSubscription: 'MTC Denver Sandbox'
         appType: 'webAppLinux'
         WebAppName:  jl-ignite2019-terraform-demo-staging-app
-        packageForLinux: '$(System.DefaultWorkingDirectory)/*'
+        packageForLinux: '$(Pipeline.Workspace)/*'
         RuntimeStack: 'DOTNETCORE|2.2'
         StartupCommand: 'dotnet run demo-app.dll'
 
@@ -57,6 +59,9 @@ stages:
     pool:
       vmImage: 'Ubuntu-16.04'
     steps:
+    
+    # Don't clone the repo
+    - checkout: none
 
     # Download the published application artifact
     - download: current
@@ -69,6 +74,6 @@ stages:
         azureSubscription: 'MTC Denver Sandbox'
         appType: 'webAppLinux'
         WebAppName:  jl-ignite2019-terraform-demo-staging-app
-        packageForLinux: '$(System.DefaultWorkingDirectory)/*'
+        packageForLinux: '$(Pipeline.Workspace)/*'
         RuntimeStack: 'DOTNETCORE|2.2'
         StartupCommand: 'dotnet run demo-app.dll'
