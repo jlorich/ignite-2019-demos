@@ -8,7 +8,7 @@ trigger:
     - demo-ignite2019-terraform/azure-pipelines-terraform.yml
 
 stages:
-     
+
 # Staging release
 - stage: Staging
   jobs:
@@ -16,12 +16,11 @@ stages:
     pool:
       vmImage: 'Ubuntu-16.04'
     steps:
-
     # Download the published application artifact
     - script: |
         # Fail on errors, output every command and result to the log
         set -e -x
-        
+
         # Init terraform
         terraform init \
           -backend-config="storage_account_name=mtcdenterraformsandbox" \
