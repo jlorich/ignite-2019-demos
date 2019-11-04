@@ -9,6 +9,10 @@ trigger:
     - demo-ignite2019-terraform/templates/*
         
 stages:
+- stage: Demo
+  jobs:
+  - template: templates/test.yml
+
 - stage: Build
   jobs:
   - template: templates/build.yml
