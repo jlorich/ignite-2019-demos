@@ -9,6 +9,7 @@ jobs:
     vmImage: 'Ubuntu-16.04'
 
   steps:
+    # User a fix Terraform version to prevent incompability issues
     - task: terraformInstaller@0
       inputs:
         terraformVersion: '0.12.13'
