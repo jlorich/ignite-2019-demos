@@ -9,31 +9,20 @@ jobs:
     vmImage: 'Ubuntu-16.04'
 
   steps:
-    - task: terraformInstaller@0
-      inputs:
-        terraformVersion: '0.12.13'
-    
-    - script: |
-        set -e -x
-        
-        echo `which terraform`
-
-        echo `terraform -v`
-
     - task: terraform@0
       inputs:
         command: 'CLI'
         providerAzureConnectedServiceName: 'MTC Denver Sandbox'
         backendAzureProviderStorageAccountName: 'mtcdenterraformsandbox'
         backendAzureStateFileKey: 'tfclitest.tfstate'
-        cwd: tests/test-template-azure
+        cwd: $(System.DefaultWorkingDirectory)/demo-ignite2019-terraform/terraform/
         script: |
           # Validate
           terraform validate
           # Plan
           terraform plan -input=false -out=testplan.tf
       displayName: Run Terraform CLI
-      
+
     # Apply terraform
     - task: terraform@0
       inputs:      
