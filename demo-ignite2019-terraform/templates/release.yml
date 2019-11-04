@@ -6,12 +6,12 @@ parameters:
 jobs:
 - job: Deploy
   pool:
-    vmImage: 'Ubuntu-16.04'
+    vmImage: 'Ubuntu-18.04'
 
   steps:
     # Apply terraform
     - task: terraform@0
-      inputs:
+      inputs:      
         command: CLI
         providerAzureConnectedServiceName: ${{ parameters.azureSubscription }}
         backendAzureProviderStorageAccountName: '${{ parameters.terraformStorageAccountName }}'
