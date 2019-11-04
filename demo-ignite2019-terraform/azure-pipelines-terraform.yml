@@ -18,25 +18,25 @@ stages:
     steps:
 
     # Download the published application artifact
-    - script:
-          # Fail on errors, output every command and result to the log
-          set -e -x
+    - script: |
+        # Fail on errors, output every command and result to the log
+        set -e -x
+        
+        # Init terraform
+        terraform init \
+          -backend-config="storage_account_name=mtcdenterraformsandbox" \
+          -backend-config="container_name=tfstate" \
+          -backend-config="key=ignitedemostaging.tfstate" \
+          -backend-config="resource_group_name=demo-terraform-sandbox-rg"
 
-          # Init terraform
-          terraform init \
-            -backend-config="storage_account_name=mtcdenterraformsandbox" \
-            -backend-config="container_name=tfstate" \
-            -backend-config="key=ignitedemostaging.tfstate" \
-            -backend-config="resource_group_name=demo-terraform-sandbox-rg"
+        # Generate a Terraform plan
+        terraform plan \
+          -var environment="${{ parameters.environment }}" \
+          -out=${{ parameters.environment }}.tfplan \
+          -input=false 
 
-          # Generate a Terraform plan
-          terraform plan \
-            -var environment="${{ parameters.environment }}" \
-            -out=${{ parameters.environment }}.tfplan \
-            -input=false 
-
-          # Apply Terraform Template
-          terraform apply ${{ parameters.environment }}.tfplan
+        # Apply Terraform Template
+        terraform apply ${{ parameters.environment }}.tfplan
       env:
         ARM_TENANT_ID: $(tenantId)
         ARM_CLIENT_ID: $(servicePrincipalId)
@@ -52,25 +52,25 @@ stages:
     steps:
 
     # Download the published application artifact
-    - script:
-          # Fail on errors, output every command and result to the log
-          set -e -x
+    - script: |
+        # Fail on errors, output every command and result to the log
+        set -e -x
 
-          # Init terraform
-          terraform init \
-            -backend-config="storage_account_name=mtcdenterraformsandbox" \
-            -backend-config="container_name=tfstate" \
-            -backend-config="key=ignitedemoproduction.tfstate" \
-            -backend-config="resource_group_name=demo-terraform-sandbox-rg"
+        # Init terraform
+        terraform init \
+          -backend-config="storage_account_name=mtcdenterraformsandbox" \
+          -backend-config="container_name=tfstate" \
+          -backend-config="key=ignitedemoproduction.tfstate" \
+          -backend-config="resource_group_name=demo-terraform-sandbox-rg"
 
-          # Generate a Terraform plan
-          terraform plan \
-            -var environment="${{ parameters.environment }}" \
-            -out=${{ parameters.environment }}.tfplan \
-            -input=false 
+        # Generate a Terraform plan
+        terraform plan \
+          -var environment="${{ parameters.environment }}" \
+          -out=${{ parameters.environment }}.tfplan \
+          -input=false 
 
-          # Apply Terraform Template
-          terraform apply ${{ parameters.environment }}.tfplan
+        # Apply Terraform Template
+        terraform apply ${{ parameters.environment }}.tfplan
       env:
         ARM_TENANT_ID: $(tenantId)
         ARM_CLIENT_ID: $(servicePrincipalId)
