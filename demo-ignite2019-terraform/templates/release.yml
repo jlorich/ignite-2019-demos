@@ -17,9 +17,9 @@ jobs:
     - task: terraform@0
       inputs:
         command: CLI
-        targetAzureSubscription: ${{ parameters.azureSubscription }}
-        targetStorageAccountName: '${{ parameters.terraformStorageAccountName }}'
-        backendStateFileKey: 'ignitedemo${{ parameters.environment }}.tfstate'
+        providerAzureConnectedServiceName: ${{ parameters.azureSubscription }}
+        backendAzureProviderStorageAccountName: '${{ parameters.terraformStorageAccountName }}'
+        backendAzureStateFileKey: 'ignitedemo${{ parameters.environment }}.tfstate'
         workingDirectory: $(System.DefaultWorkingDirectory)/terraform/
         script: |
           # Fail on errors, output every command and result to the log
