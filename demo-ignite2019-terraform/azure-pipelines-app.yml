@@ -24,7 +24,7 @@ stages:
 
     # Publish the app as an artifact
     - publish: $(Build.ArtifactStagingDirectory)
-      artifact: blog
+      artifact: app
         
       
 # Staging release
