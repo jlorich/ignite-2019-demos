@@ -43,9 +43,9 @@ stages:
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
-        azureSubscription: $(stagingAzureSubscription)
+        azureSubscription: 'MTC Denver Sandbox'
         appType: 'webAppLinux'
-        WebAppName: $(stagingAppName)
+        WebAppName:  jl-ignite2019-terraform-demo-staging-app
         packageForLinux: '$(System.DefaultWorkingDirectory)/*'
         RuntimeStack: 'DOTNETCORE|2.2'
         StartupCommand: 'dotnet run demo-app.dll'
@@ -66,9 +66,9 @@ stages:
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
-        azureSubscription: $(productionAzureSubscription)
+        azureSubscription: 'MTC Denver Sandbox'
         appType: 'webAppLinux'
-        WebAppName: ''
+        WebAppName:  jl-ignite2019-terraform-demo-staging-app
         packageForLinux: '$(System.DefaultWorkingDirectory)/*'
         RuntimeStack: 'DOTNETCORE|2.2'
         StartupCommand: 'dotnet run demo-app.dll'
