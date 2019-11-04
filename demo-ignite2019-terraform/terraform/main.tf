@@ -2,6 +2,12 @@ provider "azurerm" {
   version = "=1.35.0"
 }
 
+terraform {
+  backend "azurerm" {
+
+  }
+}
+
 resource "azurerm_resource_group" "default" {
   name     = "${var.prefix}-${var.name}-${var.environment}-rg"
   location = "${var.location}"
