@@ -19,7 +19,21 @@ jobs:
         echo `which terraform`
 
         echo `terraform -v`
-     
+
+    - task: terraform@0
+      inputs:
+        command: 'CLI'
+        providerAzureConnectedServiceName: 'MTC Denver Sandbox'
+        backendAzureProviderStorageAccountName: 'mtcdenterraformsandbox'
+        backendAzureStateFileKey: 'tfclitest.tfstate'
+        cwd: tests/test-template-azure
+        script: |
+          # Validate
+          terraform validate
+          # Plan
+          terraform plan -input=false -out=testplan.tf
+      displayName: Run Terraform CLI
+      
     # Apply terraform
     - task: terraform@0
       inputs:      
