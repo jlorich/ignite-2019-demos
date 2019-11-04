@@ -16,7 +16,7 @@ jobs:
         providerAzureConnectedServiceName: ${{ parameters.azureSubscription }}
         backendAzureProviderStorageAccountName: '${{ parameters.terraformStorageAccountName }}'
         backendAzureStateFileKey: 'ignitedemo${{ parameters.environment }}.tfstate'
-        workingDirectory: terraform/
+        workingDirectory: $(System.DefaultWorkingDirectory)/demo-ignite2019-terraform/terraform/
         script: |
           # Fail on errors, output every command and result to the log
           set -e -x
