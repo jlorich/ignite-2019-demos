@@ -19,11 +19,11 @@ stages:
     # Build and publish the application library
     - script: |
         cd demo-app
-        dotnet publish -c release -o $(build.StagingDirectory)
+        dotnet publish -c release -o $(build.StagingDirectory) ./demo-ignite2019-terraform/src/demo-app.csproj
       displayName: Publish application
 
     # Publish the app as an artifact
-    - publish: $(Build.ArtifactStagingDirectory)/out
+    - publish: $(Build.ArtifactStagingDirectory)
       artifact: blog
         
       
