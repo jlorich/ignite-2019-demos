@@ -6,6 +6,7 @@ trigger:
   paths:
     include:
     - demo-ignite2019-terraform/azure-pipelines-app.yml
+    - demo-ignite2019-terraform/templates/*
 
 stages:
 
