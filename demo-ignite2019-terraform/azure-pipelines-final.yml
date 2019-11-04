@@ -19,7 +19,7 @@ stages:
     parameters:
       environment: staging
       azureSubscription: $(stagingAzureSubscription)
-      terraformStorageAccountName: jlorichtfstate
+      terraformStorageAccountName: mtcdenterraformsandbox
 
 - stage: Production
   jobs:
@@ -27,4 +27,4 @@ stages:
     parameters:
       environment: production
       azureSubscription: $(productionAzureSubscription)
-      terraformStorageAccountName: jlorichtfstate
+      terraformStorageAccountName: mtcdenterraformsandbox
